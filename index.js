@@ -33,7 +33,8 @@ app.use('/api',clientRoute);
 app.use('/api',matterRoute);
 
 
-const PORT = 8000;
+//starting a server
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
   console.log(`server running at port ${PORT}`);
