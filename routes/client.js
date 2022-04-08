@@ -1,0 +1,17 @@
+const express = require('express');
+const { adminMiddleware, requireSignin } = require('../common-middleware');
+const { createNewClient, getAllClient } = require('../controller/client');
+const router = express.Router();
+
+//read route
+router.get('/client/getAllClient',requireSignin,adminMiddleware, getAllClient);
+
+//post route
+router.post('/client/createNew',requireSignin,adminMiddleware, createNewClient);
+
+
+// router.get('/testroute',isSignedIn,(req,res)=>{
+// res.send("a protected route");
+// });
+
+module.exports = router;
