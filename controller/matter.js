@@ -81,6 +81,21 @@ exports.getMatterByClientId = (req, res) => {
   });
 };
 
+exports.getAllMatter = (req, res) => {
+  Matter.find()
+  .populate("client")
+  .exec((err, matters) => {
+    if (err) {
+      return res.status(400).json({
+        error: "No matters are in database",
+      });
+    }
+    if(matters){
+     return res.status(201).json(matters);
+    }
+  });
+};
+
 //middleware
 exports.pdf = (req, res, next) => {
   if (req.matter.engagementLetter.data) {
