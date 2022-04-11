@@ -1,12 +1,16 @@
 const mongoose = require("mongoose");
 
 const clientSchema = new mongoose.Schema({
-  name: {
+  clientName: {
     type: String,
     required: true,
     trim: true,
     maxlength: 32,
   },
+  clientAddress: {
+    type: String,
+    trim: true
+  }
   
 },{timestamps: true});
 

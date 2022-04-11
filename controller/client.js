@@ -5,8 +5,8 @@ const fs = require("fs");
 
 //creating new client
 exports.createNewClient = (req, res) => {
-const { name } = req.body;
-const _user = new Client({ name })
+const { clientName, clientAddress } = req.body;
+const _user = new Client({ clientName, clientAddress })
 _user.save((err, client) => {
     if(err){
         return res.status(200).json({
