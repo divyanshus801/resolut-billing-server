@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/client/getAllClient',requireSignin,adminMiddleware, getAllClient);
 
 //post route
-router.post('/client/createNew',requireSignin,adminMiddleware, createNewClient);
+router.post('/client/createNew', createNewClient);
 
 
 // router.get('/testroute',isSignedIn,(req,res)=>{
