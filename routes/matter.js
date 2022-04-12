@@ -15,6 +15,6 @@ router.get('/matter/pdf/:matterId',pdf);
 
 
 //post route
-router.post('/matter/createNew',requireSignin,adminMiddleware, createMatterByClient);
+router.post('/matter/createNew', createMatterByClient);
 
 module.exports = router;

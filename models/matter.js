@@ -10,9 +10,12 @@ const matterSchema = new mongoose.Schema(
       maxlength: 32,
       unique: true,
     },
+    resourceSpecificPrice: {
+      type: mongoose.Types.Decimal128,
+    },
     pricePerHour: {
       type: mongoose.Types.Decimal128,
-      required: true,
+      
     },
     engagementLetter: {
       data: Buffer,
