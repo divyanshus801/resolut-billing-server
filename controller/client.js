@@ -9,13 +9,13 @@ const { clientName, clientAddress } = req.body;
 const _user = new Client({ clientName, clientAddress })
 _user.save((err, client) => {
     if(err){
-        return res.status(200).json({
+        return res.status(400).json({
             message: "unable to create new client",
             err
         })
     }
     if(client){
-        return res.status(400).json({
+        return res.status(201).json({
             message: "client created successfully",
             client
         })
