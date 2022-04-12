@@ -4,7 +4,7 @@ const { createNewClient, getAllClient } = require('../controller/client');
 const router = express.Router();
 
 //read route
-router.get('/client/getAllClient',requireSignin,adminMiddleware, getAllClient);
+router.get('/client/getAllClient', getAllClient);
 
 //post route
 router.post('/client/createNew', createNewClient);
