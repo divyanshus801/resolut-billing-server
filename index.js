@@ -20,7 +20,7 @@ Connection();
 const authRoute = require('./routes/auth');
 const clientRoute = require('./routes/client');
 const matterRoute = require('./routes/matter');
-
+const lawyerRoute = require('./routes/lawyer')
 
 //Middlewares
 app.use(bodyParser.json());
@@ -31,6 +31,7 @@ app.use(cors());
 app.use('/api',authRoute);
 app.use('/api',clientRoute);
 app.use('/api',matterRoute);
+app.use('/api',lawyerRoute);
 
 
 //starting a server
