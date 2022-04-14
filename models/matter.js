@@ -3,6 +3,11 @@ const {ObjectId} = mongoose.Schema;
 
 const matterSchema = new mongoose.Schema(
   {
+    client: {
+      type: ObjectId,
+      ref: "Client",
+      required: true
+  },
     name: {
       type: String,
       trim: true,
@@ -11,7 +16,7 @@ const matterSchema = new mongoose.Schema(
       unique: true,
     },
     resourceSpecificPrice: {
-      type: mongoose.Types.Decimal128,
+      type: Array,
     },
     pricePerHour: {
       type: mongoose.Types.Decimal128,
@@ -20,12 +25,8 @@ const matterSchema = new mongoose.Schema(
     engagementLetter: {
       data: Buffer,
       contentType: String,
-    },
-    client: {
-        type: ObjectId,
-        ref: "Client",
-        required: true
-    },
+    }
+   
   },
   { timestamps: true }
 );
