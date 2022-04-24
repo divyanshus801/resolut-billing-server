@@ -29,6 +29,11 @@ exports.requireSignin = (req, res, next) => {
   //jwt.decode()
 }
 
+exports.routeHitted = (req, res, next) => {
+  console.log("route hitted");
+  next();
+}
+
 
 exports.userMiddleware = (req, res, next) => {
   if (req.user.role !== 'user') {

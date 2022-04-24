@@ -18,6 +18,12 @@ exports.getMatterById = (req, res, next, id) => {
     });
 };
 
+exports.getMatterByMatterId = (req, res) => {
+if(req.matter){
+  return res.status(200).json({ matterDetails: req.matter })
+}
+}
+
 exports.getClientById = (req, res, next, id) => {
   client.findById(id).exec((err, client) => {
     if (err) {
@@ -31,41 +37,41 @@ exports.getClientById = (req, res, next, id) => {
 };
 
 exports.createMatterByClient = (req, res) => {
-  let form = new formidable.IncomingForm();
-  form.keepExtensions = true;
+  console.log(req.body);
+  const { name, client, pricePerHour, resourceSpecificPrice } = req.body;
+  let = engagementLetter = [];
 
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      return res.status(400).json({
-        error: "problem with pdf",
-      });
+  if (req.file) {
+    console.log(req.file)
+    engagementLetter = 
+     { data: req.file.path,
+      contentType: req.file.mimetype}
+  }
+
+  let matter = new Matter({
+    name,
+    client,
+    engagementLetter,
+  });
+
+  if(pricePerHour !== ""){
+    matter.pricePerHour = pricePerHour;
+  }else{
+    matter.resourceSpecificPrice = resourceSpecificPrice;
+  }
+
+  //save to the DB
+  console.log(
+    matter.name,
+    matter.client,
+    matter.pricePerHour,
+    matter.resourceSpecificPrice,
+  );
+  matter.save((error, matter) => {
+    if (error) return res.status(400).json( error );
+    if (matter) {
+      res.status(201).json( matter );
     }
-    //Destructure the fields
-    const { name, pricePerHour, client } = fields;
-
-    let _matter = new Matter(fields);
-
-    //handle file here
-    if (files.engagementLetter) {
-      if (files.engagementLetter.size > 3000000) {
-        return res.status(400).json({
-          error: "File size too big!",
-        });
-      }
-      _matter.engagementLetter.data = fs.readFileSync(
-        files.engagementLetter.filepath
-      );
-      _matter.engagementLetter.contentType = files.engagementLetter.type;
-    }
-    //save to the DB
-    _matter.save((err, matter) => {
-      if (err) {
-        return res.status(400).json({
-          error: "New matter creation in DB failed",
-        });
-      }
-      res.status(201).json(matter);
-    });
   });
 };
 
@@ -83,24 +89,25 @@ exports.getMatterByClientId = (req, res) => {
 
 exports.getAllMatter = (req, res) => {
   Matter.find()
-  .populate("client")
-  .exec((err, matters) => {
-    if (err) {
-      return res.status(400).json({
-        error: "No matters are in database",
-      });
-    }
-    if(matters){
-     return res.status(201).json(matters);
-    }
-  });
+    .populate("client")
+    .exec((err, matters) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No matters are in database",
+        });
+      }
+      if (matters) {
+        return res.status(201).json(matters);
+      }
+    });
 };
 
 //middleware
 exports.pdf = (req, res, next) => {
   if (req.matter.engagementLetter.data) {
-    res.set("Content-Type", reqmatter.engagementLetter.contentType);
-    return res.send(req.matter.engagementLetter.data);
+    var data = fs.readFileSync(req.matter.engagementLetter.data)
+    res.set("Content-Type", req.matter.engagementLetter.contentType);
+    return res.send(data);
   }
   next();
 };

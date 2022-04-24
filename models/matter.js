@@ -15,18 +15,20 @@ const matterSchema = new mongoose.Schema(
       maxlength: 32,
       unique: true,
     },
+    engagementLetter: {
+      data: Buffer,
+      contentType: String,
+    },
     resourceSpecificPrice: {
-      type: Array,
+      type: [
+        { type: String}
+      ],
     },
     pricePerHour: {
       type: mongoose.Types.Decimal128,
       
-    },
-    engagementLetter: {
-      data: Buffer,
-      contentType: String,
     }
-   
+  
   },
   { timestamps: true }
 );
